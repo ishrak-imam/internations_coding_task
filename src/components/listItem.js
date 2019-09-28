@@ -7,6 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import DeleteIcon from '@material-ui/icons/Delete'
 
+import { getGroupNamesByUser } from '../modules/users/selector'
+
 const styles = {
   listItem: {
     height: 50,
@@ -18,13 +20,24 @@ const styles = {
 class Item extends Component {
   constructor (props) {
     super(props)
-
     this._onDelete = this._onDelete.bind(this)
   }
 
-  _onDelete (id) {
+  get disabled () {
+    const { type, item } = this.props
+    return type === 'group' ? !!item.users.length : false
+  }
+
+  get text () {
+    const { type, item, groups } = this.props
+    return type === 'group'
+      ? `${item.users.length} Users`
+      : getGroupNamesByUser(groups, item).join(' | ')
+  }
+
+  _onDelete (item) {
     return () => {
-      this.props.onDelete(id)
+      this.props.onDelete(item)
     }
   }
 
@@ -34,10 +47,13 @@ class Item extends Component {
       <ListItem className={classes.listItem}>
         <ListItemText
           primary={item.name}
-          secondary='Sub text'
+          secondary={this.text}
         />
         <ListItemIcon>
-          <Button onClick={this._onDelete(item.id)} >
+          <Button
+            onClick={this._onDelete(item)}
+            disabled={this.disabled}
+          >
             <DeleteIcon />
           </Button>
         </ListItemIcon>

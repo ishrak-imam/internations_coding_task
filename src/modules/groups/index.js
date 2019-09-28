@@ -24,12 +24,11 @@ const styles = {
 class Groups extends Component {
   constructor (props) {
     super(props)
-
     this._deleteGroup = this._deleteGroup.bind(this)
   }
 
-  _deleteGroup (id) {
-    this.props.deleteGroup({ id })
+  _deleteGroup (group) {
+    this.props.deleteGroup(group)
   }
 
   render () {
