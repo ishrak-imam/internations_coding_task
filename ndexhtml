@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>INVIA Test</title>
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>
