@@ -2,13 +2,17 @@
 import React, { Component } from 'react'
 
 import Header from '../../components/header'
-import AddGroup from '../../components/addGroups'
+import AddGroup from './addGroups'
 import GroupList from '../../components/list'
 import GroupItem from '../../components/listItem'
 
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+
+import { connect } from 'react-redux'
+import { getGroups } from './selector'
+import { deleteGroup } from './action'
 
 const styles = {
   paper: {
@@ -18,18 +22,42 @@ const styles = {
 }
 
 class Groups extends Component {
+  constructor (props) {
+    super(props)
+
+    this._deleteGroup = this._deleteGroup.bind(this)
+  }
+
+  _deleteGroup (id) {
+    this.props.deleteGroup({ id })
+  }
+
   render () {
-    const { classes } = this.props
+    const { classes, groups: { byId, data } } = this.props
     return (
       <Grid item>
         <Paper className={classes.paper}>
           <Header text='Groups' />
           <AddGroup />
-          <GroupList Item={GroupItem} />
+          <GroupList
+            onDelete={this._deleteGroup}
+            data={data}
+            list={byId}
+            Item={GroupItem}
+            type='group'
+          />
         </Paper>
       </Grid>
     )
   }
 }
 
-export default withStyles(styles)(Groups)
+const stateToProps = state => ({
+  groups: getGroups(state)
+})
+
+const dispatchToProps = dispatch => ({
+  deleteGroup: id => dispatch(deleteGroup(id))
+})
+
+export default connect(stateToProps, dispatchToProps)(withStyles(styles)(Groups))

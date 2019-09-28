@@ -25,7 +25,7 @@ class Users extends Component {
         <Paper className={classes.paper}>
           <Header text='Users' />
           <AddUsers />
-          <UserList Item={UserItem} />
+          {/* <UserList Item={UserItem} /> */}
         </Paper>
       </Grid>
     )

@@ -6,7 +6,10 @@
  * in the application
  */
 
+import { GROUPS_INITIAL_STATE } from '../modules/groups/initialState'
+
 export const getInitialState = () => {
   return {
+    groups: GROUPS_INITIAL_STATE
   }
 }

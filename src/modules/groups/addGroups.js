@@ -3,7 +3,11 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
-import Submit from './submit'
+import Submit from '../../components/submit'
+import { guid } from '../../utils/helpers'
+
+import { connect } from 'react-redux'
+import { addGroup } from './action'
 
 const styles = {
   addGroup: {
@@ -25,7 +29,7 @@ class AddGroups extends Component {
 
     this.state = {
       isReady: false,
-      groupName: ''
+      name: ''
     }
 
     this._handleChange = this._handleChange.bind(this)
@@ -35,31 +39,35 @@ class AddGroups extends Component {
   }
 
   _checkIsReady () {
-    const { groupName } = this.state
-    this.setState({ isReady: !!groupName })
+    const { name } = this.state
+    this.setState({ isReady: !!name })
   }
 
   _handleChange (event) {
-    this.setState({ groupName: event.target.value }, this._checkIsReady)
+    this.setState({ name: event.target.value }, this._checkIsReady)
   }
 
   _handleSubmit (event) {
     event.preventDefault()
-    const { isReady, groupName } = this.state
+    const { isReady, name } = this.state
     if (isReady) {
-      console.log(groupName)
+      const id = guid()
+      this.props.addGroup({
+        id,
+        group: { id, name, users: [] }
+      })
       this._clearForm()
     }
   }
 
   _clearForm () {
-    this.setState({ groupName: '', isReady: false })
+    this.setState({ name: '', isReady: false })
   }
 
   render () {
     const { classes } = this.props
 
-    const { groupName, isReady } = this.state
+    const { name, isReady } = this.state
 
     return (
       <Box className={classes.addGroup}>
@@ -67,7 +75,7 @@ class AddGroups extends Component {
           <TextField
             id='group-name'
             label='Group Name'
-            value={groupName}
+            value={name}
             onChange={this._handleChange}
             margin='normal'
             variant='outlined'
@@ -86,4 +94,8 @@ class AddGroups extends Component {
   }
 }
 
-export default withStyles(styles)(AddGroups)
+const dispatchToProps = dispatch => ({
+  addGroup: group => dispatch(addGroup(group))
+})
+
+export default connect(null, dispatchToProps)(withStyles(styles)(AddGroups))

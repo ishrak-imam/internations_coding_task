@@ -15,14 +15,15 @@ const styles = {
 
 class AppList extends Component {
   render () {
-    const { classes, Item } = this.props
+    const { classes, Item, list, data, type, onDelete } = this.props
     return (
       <Box className={classes.list}>
         <List>
-          <Item />
-          <Item />
-          <Item />
-          <Item />
+          {
+            list.map(item =>
+              <Item key={item} item={data[item]} onDelete={onDelete} />
+            )
+          }
         </List>
       </Box>
     )
