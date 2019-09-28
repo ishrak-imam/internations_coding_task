@@ -19,11 +19,14 @@ class AppList extends Component {
     return (
       <Box className={classes.list}>
         <List>
-          {
-            list.map(item =>
-              <Item key={item} item={data[item]} onDelete={onDelete} type={type} groups={groups} />
-            )
-          }
+          {list.map(item =>
+            <Item
+              key={item}
+              item={data[item]}
+              onDelete={onDelete}
+              type={type}
+              groups={groups} />
+          )}
         </List>
       </Box>
     )

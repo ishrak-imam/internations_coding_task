@@ -14,8 +14,5 @@ export const getUsers = state => {
 export const getGroupNamesByUser = (groups, user) => {
   const { data } = groups
   const userGroups = user.groups
-
-  return userGroups.map(group => {
-    return data[group].name
-  })
+  return userGroups.map(group => data[group].name)
 }

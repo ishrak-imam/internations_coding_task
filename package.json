@@ -3,15 +3,12 @@
   "version": "1.0.0",
   "description": "Coding challenge",
   "main": "index.js",
-
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production"
   },
-  
   "author": "Ishrak",
   "license": "ISC",
-
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
@@ -39,7 +36,6 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
-    "redux": "^4.0.1",
-    "redux-saga": "^1.0.2"
+    "redux": "^4.0.1"
   }
 }
