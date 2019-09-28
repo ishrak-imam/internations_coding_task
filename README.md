@@ -11,3 +11,5 @@ Current features:
 - Add users and assign at least one group while adding.
 - List of users.
 - Delete users.
+
+N.B. I use JavaScript standard style to format my code and it also notifies about unused variables or imports. No starter like `create-react-app` or others were used. Just configured a basic WebPack setup to run the development process.
